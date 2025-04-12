@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en" class="transition-colors duration-300">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Recipe Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    // Enable class-based dark mode
+    tailwind.config = {
+      darkMode: 'class'
+    };
+  </script>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 min-h-screen flex items-center justify-center p-4 transition-colors duration-300">
+  <div class="bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-100 p-8 rounded-2xl shadow-xl max-w-3xl w-full space-y-6 transition-colors duration-300">
+    
+    <div class="flex justify-between items-center">
+      <h1 class="text-3xl font-bold text-green-600 dark:text-green-400">🍽️ AI Recipe Generator</h1>
+      <button id="themeToggle" class="text-sm bg-gray-200 dark:bg-gray-700 px-4 py-2 rounded-lg transition">
+        🌞 Light
+      </button>
+    </div>
+
+    <div class="flex gap-4">
+      <input id="recipeInput" type="text" placeholder="Enter a dish or dietary need..." class="flex-1 p-3 border dark:border-gray-600 bg-white dark:bg-gray-700 text-black dark:text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500">
+      <button onclick="generateRecipe()" class="bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-3 rounded-lg transition">
+        Generate
+      </button>
+    </div>
+
+    <div id="output" class="bg-gray-50 dark:bg-gray-700 text-gray-800 dark:text-gray-100 p-6 rounded-lg border dark:border-gray-600 overflow-y-auto max-h-[500px] text-base font-medium space-y-4">
+      <!-- Recipe cards will appear here -->
+    </div>
+  </div>
+
+  <script>
+    // Theme Toggle
+    const themeBtn = document.getElementById("themeToggle");
+    const rootEl = document.documentElement;
+
+    function setTheme(mode) {
+      if (mode === "dark") {
+        rootEl.classList.add("dark");
+        localStorage.setItem("theme", "dark");
+        themeBtn.innerHTML = "🌙 Dark";
+      } else {
+        rootEl.classList.remove("dark");
+        localStorage.setItem("theme", "light");
+        themeBtn.innerHTML = "🌞 Light";
+      }
+    }
+
+    themeBtn.addEventListener("click", () => {
+      const current = rootEl.classList.contains("dark") ? "dark" : "light";
+      setTheme(current === "dark" ? "light" : "dark");
+    });
+
+    // Load saved theme on startup
+    const savedTheme = localStorage.getItem("theme") || "light";
+    setTheme(savedTheme);
+
+    // Recipe generator
+    async function generateRecipe() {
+      const userInput = document.getElementById("recipeInput").value;
+      const outputEl = document.getElementById("output");
+
+      outputEl.innerHTML = `<div class="text-gray-500 italic text-base animate-pulse">Generating recipe...</div>`;
+
+      try {
+        const res = await fetch("http://127.0.0.1:5000/generate-recipe", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ query: userInput })
+        });
+
+        const data = await res.json();
+        const recipeText = data.recipe || "No recipe returned.";
+        const sections = parseRecipeSections(recipeText);
+
+        let html = `
+          <div class="p-6 rounded-xl shadow border dark:border-gray-600 dark:bg-gray-800 bg-white">
+            <h2 class="text-2xl font-bold text-green-600 dark:text-green-400 mb-2">🍲 ${sections.title || 'Recipe'}</h2>
+            ${sections.description ? `<p class="text-gray-500 mb-4 text-base dark:text-gray-300">${sections.description}</p>` : ''}
+          </div>
+        `;
+
+        for (const [sectionTitle, items] of Object.entries(sections.parts)) {
+          if (!items.length) continue;
+          html += `
+            <div class="p-6 rounded-xl shadow border dark:border-gray-600 dark:bg-gray-800 bg-white">
+              <h3 class="text-xl font-semibold mb-3">${sectionTitle}</h3>
+              <ul class="space-y-2 pl-2">
+                ${items.map(item => `<li class="leading-relaxed">${sanitizeItem(item)}</li>`).join('')}
+              </ul>
+            </div>
+          `;
+        }
+
+        outputEl.innerHTML = html;
+      } catch (err) {
+        outputEl.innerHTML = `<div class="text-red-600 dark:text-red-400 font-medium">❌ Error generating recipe.</div>`;
+      }
+    }
+
+    function parseRecipeSections(text) {
+      const lines = text.split('\n').map(l => l.trim()).filter(l => l);
+      let currentSection = 'Description';
+      const parts = { 'Description': [] };
+      let title = '';
+
+      lines.forEach(line => {
+        const sectionMatch = line.match(/^\*?\*?\s*(.+?):\s*\*?\*?$/i);
+        const headingMatch = line.match(/^#+\s*(.+)/);
+
+        if (headingMatch) {
+          title = headingMatch[1].trim();
+          return;
+        }
+
+        if (sectionMatch) {
+          currentSection = sectionMatch[1].trim();
+          if (!parts[currentSection]) parts[currentSection] = [];
+        } else {
+          parts[currentSection].push(line.replace(/^[-*]\s*/, ''));
+        }
+      });
+
+      return {
+        title,
+        description: parts['Description']?.join(' ') || '',
+        parts
+      };
+    }
+
+    function sanitizeItem(item) {
+      return item.replace(/^[-*]\s*/, '').replace(/^\d+\.\s*/, '');
+    }
+  </script>
+</body>
+</html>

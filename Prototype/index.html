@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SafeEats - Smart Food Safety Scanner</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://ai-public.creatie.ai/gen_page/tailwind-custom.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com/3.4.5?plugins=forms@0.5.7,typography@0.5.13,aspect-ratio@0.4.2,container-queries@0.1.1"></script>
+    <script
+      src="https://ai-public.creatie.ai/gen_page/tailwind-config.min.js"
+      data-color="#000000"
+      data-border-radius="small"
+    ></script>
+  </head>
+  <body class="bg-gray-50 font-sans min-h-screen">
+    <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center justify-between py-6 display-fixed">
+        <div class="flex items-center">
+          <img
+            src="SafeEats_logo.png"
+            alt="SafeEats Logo"
+            class="h-12 rounded-full border-2 border-red-500
+            "
+          />
+          <span class="ml-3 text-2xl font-semibold text-gray-900 ">SafeEats: Because Every Bite Matters!</span>
+        </div>
+        <div class="flex items-center space-x-4">
+          <button class="text-gray-600 hover:text-custom !rounded-button">
+            <i class="fas fa-bell text-xl"></i>
+          </button>
+          <button class="text-gray-600 hover:text-custom !rounded-button">
+            <i class="fas fa-user-circle text-xl"></i>
+          </button>
+        </div>
+      </nav>
+
+      <div class="mt-8 relative">
+        <div class="relative">
+          <input
+            type="text"
+            placeholder="Search for a day of the week..."
+            class="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-custom focus:border-transparent"
+          />
+          <i
+            class="fas fa-search absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400"
+          ></i>
+        </div>
+      </div>
+
+      <div class="mt-12 grid grid-cols-2 gap-8">
+        <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+          <div class="flex items-center justify-center mb-6">
+            <i class="fas fa-camera text-3xl text-custom mr-4"></i>
+            <button
+              class="bg-custom text-white px-6 py-3 rounded-lg font-medium !rounded-button"
+            >
+              Scan Recipe
+            </button>
+          </div>
+          <div class="aspect-w-16 aspect-h-9 bg-gray-100 rounded-lg mb-4">
+            <div class="flex items-center justify-center">
+              <i class="fas fa-image text-4xl text-gray-400"></i>
+            </div>
+          </div>
+        </div>
+        <div class="bg-white p-8 rounded-lg shadow-sm border border-gray-200">
+          <div class="flex items-center justify-center mb-6">
+            <i class="fas fa-barcode text-3xl text-custom mr-4"></i>
+            <button
+              class="bg-custom text-white px-6 py-3 rounded-lg font-medium !rounded-button"
+            >
+              Scan Barcode
+            </button>
+          </div>
+          <div class="bg-gray-100 p-6 rounded-lg">
+            <h3 class="font-semibold mb-4">Scan Results</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-gray-600">Calories</span>
+                <span class="font-medium">245 kcal</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Protein</span>
+                <span class="font-medium">12g</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-600">Carbs</span>
+                <span class="font-medium">30g</span>
+              </div>
+              <div class="mt-4 flex items-center">
+                <i class="fas fa-check-circle text-custom mr-2"></i>
+                <span class="font-medium text-custom">Safe to eat</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-12">
+        <h2 class="text-2xl font-semibold mb-8">Today's Dietary Plan</h2>
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <h3 class="text-xl font-medium mb-6 flex items-center">
+              <i class="fas fa-leaf text-custom mr-2"></i>
+              Vegetarian Options
+            </h3>
+            <div class="space-y-6">
+              <div
+                class="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
+              >
+                <img
+                  src="https://img.freepik.com/free-photo/fresh-vegetarian-salad-with-quinoa-avocado-generated-by-ai_188544-36496.jpg"
+                  alt="Quinoa Buddha Bowl"
+                  class="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h4 class="font-medium mb-2">Quinoa Buddha Bowl</h4>
+                <div class="text-sm text-gray-600">
+                  <p>Calories: 420 kcal</p>
+                  <p>Protein: 15g</p>
+                  <p>Carbs: 65g</p>
+                </div>
+              </div>
+              <div
+                class="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
+              >
+                <img
+                  src="https://c4.wallpaperflare.com/wallpaper/557/8/980/food-pasta-basil-olives-wallpaper-preview.jpg"
+                  alt="Mediterranean Pasta"
+                  class="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h4 class="font-medium mb-2">Mediterranean Pasta</h4>
+                <div class="text-sm text-gray-600">
+                  <p>Calories: 380 kcal</p>
+                  <p>Protein: 12g</p>
+                  <p>Carbs: 58g</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-xl font-medium mb-6 flex items-center">
+              <i class="fas fa-drumstick-bite text-custom mr-2"></i>
+              Non-Vegetarian Options
+            </h3>
+            <div class="space-y-6">
+              <div
+                class="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
+              >
+                <img
+                  src="https://media.istockphoto.com/id/1514260099/photo/grilled-salmon-pasta.jpg?s=612x612&w=0&k=20&c=9QX5_v5oS6fYX-38cJwhwfinvXYHP1dBkRZB6vDlSjw="
+                  alt="Grilled Salmon"
+                  class="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h4 class="font-medium mb-2">Grilled Salmon</h4>
+                <div class="text-sm text-gray-600">
+                  <p>Calories: 450 kcal</p>
+                  <p>Protein: 35g</p>
+                  <p>Carbs: 25g</p>
+                </div>
+              </div>
+              <div
+                class="bg-white p-6 rounded-lg shadow-sm border border-gray-200"
+              >
+                <img
+                  src="https://media.istockphoto.com/id/622068426/photo/stir-fry-with-chicken-mushrooms-broccoli-and-peppers.jpg?s=612x612&w=0&k=20&c=u5nlDN-OFrrrOiDxr4EYp5b1L4oUGdEcJdyla1HunAs="
+                  alt="Chicken Stir-Fry"
+                  class="w-full h-48 object-cover rounded-lg mb-4"
+                />
+                <h4 class="font-medium mb-2">Chicken Stir-Fry</h4>
+                <div class="text-sm text-gray-600">
+                  <p>Calories: 380 kcal</p>
+                  <p>Protein: 28g</p>
+                  <p>Carbs: 35g</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <button
+      class="fixed bottom-8 right-8 bg-custom text-white w-14 h-14 rounded-full shadow-lg flex items-center justify-center hover:bg-custom/90 transition-colors !rounded-button"
+    >
+      <i class="fas fa-robot text-blue-500 text-2xl"></i>
+    </button>
+
+    <footer class="mt-16 bg-gray-100">
+      <div class="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="grid grid-cols-4 gap-8">
+          <div>
+            <h4 class="font-semibold mb-4">About SafeEats</h4>
+            <ul class="space-y-2 text-gray-600">
+              <li>Our Story</li>
+              <li>How it Works</li>
+              <li>Safety Standards</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">Support</h4>
+            <ul class="space-y-2 text-gray-600">
+              <li>Help Center</li>
+              <li>Contact Us</li>
+              <li>FAQs</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">Legal</h4>
+            <ul class="space-y-2 text-gray-600">
+              <li>Privacy Policy</li>
+              <li>Terms of Service</li>
+              <li>Cookie Policy</li>
+            </ul>
+          </div>
+          <div>
+            <h4 class="font-semibold mb-4">Follow Us</h4>
+            <div class="flex space-x-4">
+              <a href="#" class="text-gray-600 hover:text-custom">
+                <i class="fab fa-facebook text-xl"></i>
+              </a>
+              <a href="#" class="text-gray-600 hover:text-custom">
+                <i class="fab fa-twitter text-xl"></i>
+              </a>
+              <a href="#" class="text-gray-600 hover:text-custom">
+                <i class="fab fa-instagram text-xl"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="mt-8 pt-8 border-t border-gray-200 text-center text-gray-600"
+        >
+          <p>&copy; 2024 SafeEats. All rights reserved.</p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
